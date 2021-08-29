@@ -1,0 +1,35 @@
+To install [38;2;23;147;209mArch Linux[0m follow the installation guide:
+https://wiki.archlinux.org/title/Installation_guide
+
+For Wi-Fi, authenticate to the wireless network using the [35miwctl[0m utility.
+For mobile broadband (WWAN) modems, connect with the [35mmmcli[0m utility.
+Ethernet, WLAN and WWAN interfaces using DHCP should work automatically.
+
+After connecting to the internet, the installation guide can be accessed
+via the convenience script [35mInstallation_guide[0m.
+
+Hello from t2linux!
+
+[38;2;23;147;209mGetting WiFi working on a t2 mac:[0m
+
+1.  If you are on a MacBookAir8,1/2, change version of brcmfmac with this command, you will need to use mojave firmware:
+
+    [35mdkms uninstall brcm80211-mbp16x/5.13.9[0m
+
+2.  In root's home directory, there's a folder called "wifi-firmware", which has
+    all the firmware for wifi on t2 macs, but you will need to select which
+    files to use manually. There is a copy of the t2linux wiki wifi page in that
+    directory with instructions. You will need to use bigSur versions of
+    firmware (unless you needed to do step 1).
+
+3.  Make sure you've now loaded brcmfmac: [35mmodprobe brcmfmac[0m
+    And restarted iwd: [35msystemctl restart iwd[0m
+	Now you should be able to connect with [35miwctl[0m.
+
+
+There's also a local repo with some useful packages that you can add to pacstrap:
+
+	apple-ibridge-dkms-git: touchbar driver
+	apple-t2-audio-config-alt: audio config for mbp16,1/4
+	apple-t2-audio-config: audio config for all other t2 macs
+	brcm80211-mbp16x-dkms: wifi driver for mbp15,4, mbp16,* and mba9,1
